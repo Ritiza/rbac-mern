@@ -1,6 +1,8 @@
-FROM node:20
+FROM node:20-alpine
 WORKDIR /app
 COPY package*.json ./
-RUN npm ci --production
+RUN npm ci
 COPY . .
-CMD ["npx","serve","-s","build","-l","3000"]
+RUN npm run build
+EXPOSE 3000
+CMD ["npx", "serve", "-s", "build", "-l", "3000"]
